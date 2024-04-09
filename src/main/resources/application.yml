@@ -1,0 +1,40 @@
+server:
+  context-path: /requestmanager
+  port: ${PORT:9091}
+  baseUrl: http://127.0.0.1:${PORT:9090}
+
+spring:
+  jackson:
+    deserialization:
+      fail-on-unknown-properties: false
+  config:
+    use-legacy-processing: true
+  application:
+    name: Request Manager
+  datasource:
+    url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/requestmanager}
+    username: ${DATABASE_USERNAME:requestmanager}
+    password: ${DATABASE_PASSWORD:requestmanager}
+
+  jpa:
+    open-in-view: false
+    show-sql: false
+    hibernate:
+      ddl-auto: update
+      naming:
+        physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
+        implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+
+info:
+  application: ^project.artifactId^
+  version: ^project.version^
+  build: ^timestamp^
+  profile: ${spring.profiles.active}
+#    git-version: ${git.commit.id.describe:}
+#    git-commit: ${git.commit.id.abbrev:}
+#    git-branch: ${git.branch:}
+
+jwt:
+  secret: javainuse
+  jwtExpirationInHours: 8760
